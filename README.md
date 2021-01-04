@@ -5,6 +5,8 @@ You need to be set to the Oiler job in order to do the job. Either do it through
 
 You can edit the config in order to change the pay. You will need to add rawpetrol into your database. 
 
+Put rawpetrol.png into vorp_inventory/html/img/items
+
 **Will not provide support on here for this script. I use it on my server (Diamond Valley Roleplay) and am just sharing it so other people can use it if they want it.**
 
 Credit to Kyronomix for the original script
