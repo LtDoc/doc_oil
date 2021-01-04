@@ -1,0 +1,41 @@
+VORP = exports.vorp_core:vorpAPI()
+VorpInv = exports.vorp_inventory:vorp_inventoryApi()
+local itemcount = math.random(Config.itemcount['min'], Config.itemcount['max'])
+
+RegisterServerEvent('doc_oiler:startjob')
+AddEventHandler('doc_oiler:startjob', function()
+    --TriggerEvent('redemrp:getPlayerFromId', source, function(user)
+    TriggerEvent("vorp:getCharacter",source,function(user)
+        if user.job == Config.JobName then
+            TriggerClientEvent('doc_oiler:start', source)
+            TriggerClientEvent("vorp:TipRight", source, Language.translate[Config.lang]['gopos'], 5000)
+        else
+            TriggerClientEvent("vorp:TipRight", source, Language.translate[Config.lang]['nojob'], 5000)
+        end
+    end)
+end)
+
+RegisterServerEvent('doc_oiler:pay')
+AddEventHandler('doc_oiler:pay', function(money, xp)
+    --TriggerEvent('redemrp:getPlayerFromId', source, function(user)
+    TriggerEvent("vorp:getCharacter",source,function(user)
+        local _source = source
+		local count = VorpInv.getItemCount(source, "rawpetrol")
+        VORP.addMoney(_source, 0, (money * count))
+        VORP.addXp(_source, xp)
+	end)
+end)
+
+RegisterServerEvent('doc_oiler:additem')
+AddEventHandler('doc_oiler:additem', function(item)
+	local _source = source
+	VorpInv.addItem(_source, Config.item, itemcount)
+end)
+
+RegisterServerEvent('doc_oiler:removeitem')
+AddEventHandler('doc_oiler:removeitem', function(item)
+	local _source = source
+	local count = VorpInv.getItemCount(source, "rawpetrol")
+	VorpInv.subItem(_source, Config.item, count)
+end)
+	
